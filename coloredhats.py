@@ -7,10 +7,10 @@ import argparse
 import time
 
 ap = argparse.ArgumentParser()
-ap.add_argument("-v", "--video",
+ap.add_argument("-v", "--video", required=True,
     help="path to the video file")
 ap.add_argument("-b", "--buffer", type=int, default=10,
-	help="max buffer size")
+	help="max buffer size, controls the movements trail's length")
 args = vars(ap.parse_args())
 
 pts = deque(maxlen=args["buffer"])
