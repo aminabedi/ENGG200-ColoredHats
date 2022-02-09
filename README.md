@@ -9,12 +9,12 @@ opencv-python==4.5.5.62
 ## Usage
 python coloredhats.py [-h] [-v VIDEO] [-b BUFFER]
 
-###required arguments:
+### required arguments:
 
   -v VIDEO, --video VIDEO
                         path to the video file
 
-###optional arguments:
+### optional arguments:
 
   -h, --help            show this help message and exit
 
