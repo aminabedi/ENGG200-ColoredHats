@@ -21,5 +21,5 @@ python coloredhats.py [-h] [-v VIDEO] [-b BUFFER]
 
 
   -b BUFFER, --buffer BUFFER
-                        max buffer size
+                        max buffer size, controls the movements trail's length
 
