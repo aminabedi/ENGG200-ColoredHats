@@ -1,5 +1,3 @@
-# TechVidvan Object detection of similar color
-
 import cv2
 import numpy as np
 import imutils as imu
@@ -37,8 +35,6 @@ while(vs.isOpened()):
   if ret == True:
     #define kernel size  
     kernel = np.ones((7,7),np.uint8)
-
-
     # convert to hsv colorspace 
     # hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
