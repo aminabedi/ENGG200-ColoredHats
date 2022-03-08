@@ -9,7 +9,7 @@ opencv-python==4.5.5.62
 
 pandas==1.4.1
 ## Usage
-### HSV range detection
+### HSV range determination
 Using the command below, run the range detection program for the video file you want to do the tracking on.
 In the opened window you see 6 trackbars, each pair determining the lower and upper bounds for each of the HSV values of the color of interest.
 To track each object of a specific color, you need to first find the best range to filter out all other colors but the one of interest.
@@ -20,16 +20,17 @@ For more information on HSV, and a comparison to RGB, see this documentation.
 python range.py [-h] [-v VIDEO]
 ```
 #### required arguments:
-
   -v VIDEO, --video VIDEO
                         path to the video file
 
+### Detection
 
-python detect.py [-h] [-v VIDEO] [-b BUFFER]
 Once you have all the ranges for all the colors you need to track, you should put them in the colors dictionary defined on line 21, each associated with a label - as the key. 
 Now you can input the path to the video, the minimum radius (in pixels) you would want an object to occupy in the frame in order to be detected, and a path to the output file where the program will record the coordinates of each object at each frame.
+```
+python detect.py [-h] [-v VIDEO] [-b BUFFER]
+```
 #### required arguments:
-
   -v VIDEO, --video VIDEO
                         path to the video file
   -r RADIUS, --radius RADIUS
@@ -61,3 +62,4 @@ python detect.py -v sample.mp4 -r 10 -o sample.csv
 While processing, you can see the detections in the window, like below:
 
 ![A frame of detection](./sample.png)
+
