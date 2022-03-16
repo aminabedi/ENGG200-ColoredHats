@@ -14,9 +14,11 @@ ap.add_argument("-r", "--radius", type=int, default=10,
 	help="Minimum radius of the object to be detected")
 ap.add_argument("-o", "--output",
 	help="Filename to save the coordinates of the detected objects")
+ap.add_argument("-d", "--display", dest='display', action='store_true',
+	help="Display frames as they are processed")
 args = vars(ap.parse_args())
 
-
+display = args["display"]
 #lower bound, upper bound and RGB values for the detected colors using detect.py
 colors = {
   "Y": {
@@ -42,7 +44,7 @@ if (vs.isOpened()== False):
   print("Error opening video stream or file")
   
 # Read until video is completed
-while(vs.isOpened()):
+while(frame_no < length and vs.isOpened()): #In some versions, isOpened freezes on the last frame, so we also manually check the frame count
   # Capture frame-by-frame
   ret, frame = vs.read()
   if ret == True:
@@ -80,13 +82,9 @@ while(vs.isOpened()):
             if radius > args["radius"]:
                 # draw the circle and centroid on the frame,
                 # then update the list of tracked points
-                cv2.circle(frame, (int(x), int(y)), int(radius), rgb , 2)
-                cv2.circle(frame, center, 5, rgb, -1)
-                # df = df.append({
-                #   "Frame#": frame_no, 
-                #   "Color": c, 
-                #   "x": center[0], "y": center[1], 
-                #   "x_max": frame_width, "y_max": frame_height}, ignore_index=True)
+                if display:
+                  cv2.circle(frame, (int(x), int(y)), int(radius), rgb , 2)
+                  cv2.circle(frame, center, 5, rgb, -1)
                 df = pd.concat([df, pd.DataFrame([{
                   "Frame#": frame_no, 
                   "Color": c, 
@@ -95,15 +93,16 @@ while(vs.isOpened()):
             #else: Not big enough to capture!
       
 
-    # Display the resulting frame
-    cv2.imshow('Frame',frame)
-    print(f"Frame: {frame_no}/{length}, detected: {len(df)}", end="\r")
-    # Press Q on keyboard to  exit
-    if cv2.waitKey(25) & 0xFF == ord('q'):
-      break
+    if display:
+      # Display the resulting frame
+      cv2.imshow('Frame',frame)
+      # Press Q on keyboard to  exit
+      if cv2.waitKey(25) & 0xFF == ord('q'):
+        break
+    print(f"Frames processed: {frame_no + 1}/{length}, detected: {len(df)}", end="\r")
     frame_no += 1
-
 if "output" in args:
+  print("Writing CSV file")
   df.to_csv(args["output"], index=False)
 # When everything done, release the video capture object
 vs.release()

@@ -26,7 +26,7 @@ python range.py [-h] [-v VIDEO]
 ### Detection
 
 Once you have all the ranges for all the colors you need to track, you should put them in the colors dictionary defined on line 21, each associated with a label - as the key. 
-Now you can input the path to the video, the minimum radius (in pixels) you would want an object to occupy in the frame in order to be detected, and a path to the output file where the program will record the coordinates of each object at each frame.
+Now you can input the path to the video, the minimum radius (in pixels) you would want an object to occupy in the frame in order to be detected, and a path to the output file where the program will record the coordinates of each object at each frame. The display option is set to False by default, if set, the program will show a window with marked frames as they are processed.
 ```
 python detect.py [-h] [-v VIDEO] [-b BUFFER]
 ```
@@ -37,6 +37,8 @@ python detect.py [-h] [-v VIDEO] [-b BUFFER]
                         Minimum radius (in pixels) of the object to be detected
   -o OUTPUT, --output OUTPUT
                         Filename to save the coordinates of the detected objects
+  -d DISPLAY, --display DISPLAY
+                        (Boolean) Enable display frames with circles around the detected objects as they are processed, default: False
 
 
 ## Example
